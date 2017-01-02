@@ -24,7 +24,7 @@ def dateget():
 time_str=dateget();
 today_str=time_str;
 stmp=time_str.split('-')
-year=2016
+year=int(stmp[0])
 month=int(stmp[1])
 day=int(stmp[2])
 
@@ -45,12 +45,16 @@ for line in sstr:
 		speakercode=0
 		retstring=strline[1]
 		stmp=retstring.split('.')
-		datecode='2016-'+"%02d"%int(stmp[0])+'-'+"%02d"%int(stmp[1])
-		datetmp=str(year)+"%02d"%int(stmp[0])+"%02d"%int(stmp[1])
-		if int(stmp[0])>month:
+		datecode="%04d"%int(stmp[0])+'-'+"%02d"%int(stmp[1])+'-'+"%02d"%int(stmp[2])
+		datetmp="%04d"%int(stmp[0])+"%02d"%int(stmp[1])+"%02d"%int(stmp[2])
+		if int(stmp[0])>year:
 			break
-		if int(stmp[1])>day and int(stmp[0])==month:
-			break
+		else:
+			if int(stmp[0])==year and int(stmp[1])>month:
+				break
+			else:
+				if int(stmp[2])>day and int(stmp[1])==month and int (stmp[0])==year:
+					break
 		str_abstract=str_abstract+"""</section><section id="date%s" ><h3 ><hr>Date:%s<br></h3>"""%(datecode,datecode)
 		ulli=ulli+"""<li style="margin-left: 0;"><a style="color: #196d92;padding-left: 1.5rem;padding-right: 1.5rem;" href="#date%s">%s</a></li>"""%(datecode,datecode)
 		
@@ -82,7 +86,7 @@ for line in sstr:
                         	linkppt=ppttmp+"""">[PPT]"""
 			else:
 				ppttmp=ppttmp[0:-2]+'df'
-				print 'xhq###'+'/usr/local/apache-tomcat-8.0.35/webapps/References/seminar/PPT/'+ppttmp
+				#print 'xhq###'+'/usr/local/apache-tomcat-8.0.35/webapps/References/seminar/PPT/'+ppttmp
 				if os.path.exists('/usr/local/apache-tomcat-8.0.35/webapps/References/seminar/PPT/'+ppttmp):
 					linkppt=ppttmp+"""">[PPT]"""
 				else:

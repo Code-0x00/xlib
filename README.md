@@ -1,6 +1,5 @@
 # Code-0x00
 xlib
-.
 ├── DeepLearning
 │   └── test2label
 │       ├── data2data.py

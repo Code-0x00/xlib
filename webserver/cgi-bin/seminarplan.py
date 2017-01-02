@@ -31,7 +31,7 @@ for line in sstr:
 	strline=line.split("#")
 	if strline[0]=='date':
 		if flag_notfirst==1:
-			str_add="""<tr><th  bgcolor= #efefef rowspan="%s">%s</th>"""%(str(count),date)+str_add
+			str_add="""<tr><th bgcolor= #efefef rowspan="%s">%s</th>"""%(str(count),date)+str_add
 			str_=str_+str_add
 
 			flag_read_firstdata=0
@@ -40,7 +40,7 @@ for line in sstr:
 
 		flag_notfirst=1
 		date_tmp=strline[1].split(".")
-		date="%02d"%int(date_tmp[0])+'.'+"%02d"%int(date_tmp[1])
+		date="%02d"%int(date_tmp[1])+'.'+"%02d"%int(date_tmp[2])
 	else:
 		count+=1
 		name=strline[0]
@@ -54,7 +54,7 @@ for line in sstr:
 
 		flag_read_firstdata=1
 
-str_add="""<tr><th  bgcolor= #efefef rowspan="%s">%s</th>"""%(str(count),date)+str_add
+str_add="""<tr><th bgcolor= #efefef rowspan="%s">%s</th>"""%(str(count),date)+str_add
 str_=str_+str_add
 
 sstr="""\

@@ -39,7 +39,7 @@ def timeget():
 time_str=dateget();
 today_str=time_str;
 stmp=time_str.split('-')
-year=2016
+year=int(stmp[0])
 month=int(stmp[1])
 day=int(stmp[2])
 #month=9
@@ -53,8 +53,8 @@ date=''
 flag_read=0
 speakers=''
 week=''
-clock='13:30'
-seminar_date_year='2016'
+clock=''
+seminar_date_year=''
 seminar_date_month=''
 seminar_date_day=''
 for line in sstr:
@@ -64,12 +64,15 @@ for line in sstr:
 			break
 		retstring=strline[1]
 		stmp=retstring.split('.')
-		if int(stmp[0])<month:
+		if int(stmp[0])<year:
 			continue
-		if int(stmp[0])==month and int(stmp[1])<day:
+		if int(stmp[0])==year and int(stmp[1])<month:
 			continue
-		seminar_date_month=stmp[0]
-		seminar_date_day=stmp[1]
+		if int(stmp[0])==year and int(stmp[1])==month and int(stmp[2])<day:
+			continue
+		seminar_date_year=stmp[0]
+		seminar_date_month=stmp[1]
+		seminar_date_day=stmp[2]
 		notice_str=''
 		#print seminar_date_year
 		#print seminar_date_month
@@ -102,7 +105,7 @@ for line in sstr:
 		except:
 			clock='13:30'
 		flag_read=1
-		date="%02d"%int(stmp[0])+'.'+"%02d"%int(stmp[1])
+		date="%04d"%int(stmp[0])+'.'+"%02d"%int(stmp[1])+'.'+"%02d"%int(stmp[2])
 		continue
 	if flag_read==1:
 		stmp=line.split('#')
@@ -120,13 +123,13 @@ for line in sstr:
 			link_str=paper+'/'+title+'.pdf'
 		
 		str_abstract_tmp="""
-<hr><b>Title:</b> %s <br><b>Date:</b> 2016.%s <br><b>Speaker:</b> %s <br><b>Abstract:</b><br><div style="text-align:justify"> %s</div>
+<hr><b>Title:</b> %s <br><b>Date:</b> %s <br><b>Speaker:</b> %s <br><b>Abstract:</b><br><div style="text-align:justify"> %s</div>
 <b>Paper:</b> %s<a href="http://114.55.145.9:8080/References/seminar/%s">[PDF]</a> <br>
 """%(title,date,name,abstract_str,paper,link_str)
 
 		str_abstract=str_abstract+str_abstract_tmp
 
-str_where="""<b>WHERE: Room 511, GuangZhi-C Buliding (Pingfeng campus)</b><p></p><b>WHEN: %s,%s, 2016.%s</b> <p></p><b>Speaker(s):  %s </b><br></td>"""%(clock,week,date,speakers)
+str_where="""<b>WHERE: Room 511, GuangZhi-C Buliding (Pingfeng campus)</b><p></p><b>WHEN: %s,%s, %s</b> <p></p><b>Speaker(s):  %s </b><br></td>"""%(clock,week,date,speakers)
 #str_where="""<b>WHERE: Room 108, GuangZhi-B Buliding (Pingfeng campus)</b><p></p><b>WHEN: %s,%s, 2016.%s</b> <p></p><b>Speaker(s):  %s </b><br></td>"""%(clock,week,date,speakers)
 
 sstr="""\
@@ -165,14 +168,14 @@ article{
 	</style></head>
 	<body style="font-family: 'Open Sans', Helvetica, Arial, sans-serif;font-size: 15px;font-weight: 300;"><p></p><h1 style="text-align: center" class="first">Group Seminar</h1><br>Today is %s<br><a href="uploadserver.py">[Submit files]</a><hr>
 	<h1 style="text-align: left" class="first">Seminar Notification</h1>
-	<h2><b><a href="http://114.55.145.9:2334/cgi-bin/seminarplan.py">Semester Schedule</a> (Updated on: 2016.11.03)</b></h2>
+	<h2><b><a href="http://114.55.145.9:2334/cgi-bin/seminarplan.py">Semester Schedule</a></b></h2>
 	<table style="width:100%%"><tbody>
 <tr><td><p></p>
 <b>Intelligent Vision &amp; Social Network</b><p></p>
 %s%s</tr></tbody></table>%s
 <hr><!--Previous Seminars-->		
 <h2>Previous Seminars </h2>	
-<a href="http://114.55.145.9:2334/cgi-bin/previous.py">[2016.09-]</a><br>
+<a href="http://114.55.145.9:2334/cgi-bin/previous.py">[2016.09-2017.01]</a><br>
 <hr>
 <!--Materials-->	
 <h2>Materials</h2>
